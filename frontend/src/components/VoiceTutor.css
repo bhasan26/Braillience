@@ -50,12 +50,6 @@
   font-weight: 600;
 }
 
-.help-text {
-  margin-top: 0.5rem;
-  color: hsl(var(--muted-foreground));
-  font-size: 0.9rem;
-}
-
 .document-select {
   width: 100%;
   padding: 1rem;
@@ -340,20 +334,6 @@
   background: hsl(var(--destructive) / 0.1);
 }
 
-.spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid transparent;
-  border-top: 2px solid currentColor;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 @media (max-width: 768px) {
   .teacher-title {
     font-size: 2rem;
@@ -373,5 +353,17 @@
   .end-call-button {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .teacher-title {
+    font-size: 1.7rem;
+  }
+
+  .call-setup,
+  .active-call,
+  .teacher-features {
+    padding: 1rem;
   }
 }

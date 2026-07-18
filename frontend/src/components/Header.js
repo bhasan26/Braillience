@@ -13,7 +13,7 @@ function Header() {
                   <Link to="/" className="brand-link" aria-label="Braillience Home">
                     <div className="brand-logo">
                       <div className="logo-container">
-                        <div className="brain-icon">🧠</div>
+                        <div className="brain-icon" aria-hidden="true">🧠</div>
                       </div>
                       <div className="brand-text">
                         <h1 className="brand-title">Braillience</h1>

@@ -45,32 +45,20 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      // For demo purposes, accept any credentials
-      const response = await axios.post('http://localhost:3001/api/auth/demo', {
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+      const response = await axios.post(`${API_BASE_URL}/api/auth/login`, {
         email,
         password
       });
-      
+
       const { data } = response.data;
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
       return { success: true };
     } catch (error) {
-      console.warn('Backend not available, using demo fallback:', error.message);
-      // Fallback for demo purposes when backend is not available
-      const demoUser = {
-        id: 'demo-user',
-        name: 'Demo Professor',
-        email: email || 'demo@braillience.com',
-        role: 'professor'
-      };
-      
-      const demoToken = 'demo-token-' + Date.now();
-      localStorage.setItem('token', demoToken);
-      localStorage.setItem('user', JSON.stringify(demoUser));
-      setUser(demoUser);
-      return { success: true };
+      console.error('Login failed:', error);
+      return { success: false, error: error.response?.data?.error || error.message };
     }
   };
 
@@ -114,8 +102,9 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('http://localhost:3001/api/auth/register', userData);
-      
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+      const response = await axios.post(`${API_BASE_URL}/api/auth/register`, userData);
+
       const { data } = response.data;
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));

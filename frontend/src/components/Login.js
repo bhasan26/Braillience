@@ -75,6 +75,7 @@ function Login() {
               onChange={(e) => setEmail(e.target.value)}
               className="form-input"
               required
+              autoComplete="email"
               placeholder="Enter your email"
               aria-describedby="email-help"
             />
@@ -95,6 +96,7 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
               className="form-input"
               required
+              autoComplete="current-password"
               placeholder="Enter your password"
               aria-describedby="password-help"
             />
@@ -108,6 +110,7 @@ function Login() {
             disabled={loading}
             className="login-button"
             aria-describedby="login-help"
+            aria-busy={loading}
           >
             {loading ? 'Signing In...' : 'Sign In to Dashboard'}
             <FiArrowRight className="button-icon" />
@@ -123,6 +126,8 @@ function Login() {
             type="button"
             onClick={handleDemoLogin}
             className="demo-button"
+            disabled={loading}
+            aria-busy={loading}
           >
             Use Demo Professor Account
           </button>

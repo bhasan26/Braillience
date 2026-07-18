@@ -201,14 +201,16 @@ function VoiceTutor() {
     <div className="voice-tutor-container">
       <div className="container">
         <div className="teacher-header">
-          <h1 className="teacher-title">🎓 AI Voice Tutor</h1>
+          <h1 className="teacher-title">
+            <span aria-hidden="true">🎓</span> AI Voice Tutor
+          </h1>
           <p className="teacher-subtitle">
             Talk through your uploaded PDF content with an AI tutor, right in your browser
           </p>
         </div>
 
         {error && (
-          <div className="error-message">
+          <div className="error-message" role="alert">
             <p>{error}</p>
             <button onClick={() => setError(null)} className="dismiss-button">
               Dismiss
@@ -217,7 +219,7 @@ function VoiceTutor() {
         )}
 
         {!isSupported && (
-          <div className="error-message">
+          <div className="error-message" role="alert">
             <p>
               Voice recognition isn't supported in this browser. Please use Chrome or Edge for
               the AI Voice Tutor.
@@ -228,12 +230,15 @@ function VoiceTutor() {
         {!session ? (
           <div className="call-setup">
             <div className="setup-section">
-              <h3>📚 Select Document</h3>
+              <h3 id="select-document-heading">
+                <span aria-hidden="true">📚</span> Select Document
+              </h3>
               {availableDocuments.length > 0 ? (
                 <select
                   value={selectedDocument || ''}
                   onChange={(e) => setSelectedDocument(e.target.value)}
                   className="document-select"
+                  aria-labelledby="select-document-heading"
                 >
                   {availableDocuments.map(doc => (
                     <option key={doc.id} value={doc.id}>
@@ -320,7 +325,9 @@ function VoiceTutor() {
 
             {lastResponse && (
               <div className="call-details">
-                <h4>🗣️ Tutor said</h4>
+                <h4>
+                  <span aria-hidden="true">🗣️</span> Tutor said
+                </h4>
                 <p>{lastResponse}</p>
               </div>
             )}
@@ -348,14 +355,16 @@ function VoiceTutor() {
         )}
 
         <div className="teacher-features">
-          <h3>🎓 What Your AI Tutor Will Do:</h3>
+          <h3>
+            <span aria-hidden="true">🎓</span> What Your AI Tutor Will Do:
+          </h3>
           <ul>
-            <li>📖 Walk through your PDF content step by step</li>
-            <li>🎯 Focus on key concepts and important information</li>
-            <li>❓ Ask questions to test your understanding</li>
-            <li>💡 Provide explanations and examples</li>
-            <li>🔄 Adapt to your learning pace</li>
-            <li>🎤 Say "repeat", "next question", "help", or "end session" any time</li>
+            <li><span aria-hidden="true">📖</span> Walk through your PDF content step by step</li>
+            <li><span aria-hidden="true">🎯</span> Focus on key concepts and important information</li>
+            <li><span aria-hidden="true">❓</span> Ask questions to test your understanding</li>
+            <li><span aria-hidden="true">💡</span> Provide explanations and examples</li>
+            <li><span aria-hidden="true">🔄</span> Adapt to your learning pace</li>
+            <li><span aria-hidden="true">🎤</span> Say "repeat", "next question", "help", or "end session" any time</li>
           </ul>
         </div>
       </div>

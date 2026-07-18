@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiUsers, FiTarget, FiAward, FiBarChart2, FiBookOpen, FiVolume2, FiTrendingUp, FiClock, FiHeart, FiMic, FiRefreshCw, FiGithub, FiMail, FiCode, FiDatabase } from 'react-icons/fi';
+import { FiAward, FiTrendingUp, FiHeart, FiMic, FiRefreshCw, FiGithub, FiMail, FiCode, FiDatabase } from 'react-icons/fi';
 import './About.css';
 
 function About() {
@@ -76,14 +76,6 @@ function About() {
                     <Icon className="team-icon-svg" />
                   </div>
                   <h3 className="team-name">{member.name}</h3>
-                  <div className="team-links">
-                    <a href="#" className="team-link" aria-label={`${member.name} on LinkedIn`}>
-                      <FiUsers className="team-link-icon" />
-                    </a>
-                    <a href="#" className="team-link" aria-label={`${member.name} on GitHub`}>
-                      <FiGithub className="team-link-icon" />
-                    </a>
-                  </div>
                 </div>
               );
             })}
@@ -130,7 +122,7 @@ function About() {
                 <li>State-of-the-art speech recognition for seamless interaction</li>
                 <li>Natural-sounding text-to-speech across all content</li>
                 <li>Voice commands for intuitive navigation</li>
-                <li>Scheduled phone calls for convenient learning access</li>
+                <li>In-browser voice tutoring sessions, no app or phone call required</li>
               </ul>
             </div>
             <div className="value-card">
@@ -173,7 +165,7 @@ function About() {
               <FiMail className="button-icon" />
               Email Us
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="contact-button secondary">
+            <a href="https://github.com/bhasan26/Braillience" target="_blank" rel="noopener noreferrer" className="contact-button secondary">
               <FiGithub className="button-icon" />
               View on GitHub
             </a>

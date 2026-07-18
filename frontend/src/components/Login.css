@@ -109,7 +109,7 @@
   color: hsl(var(--primary-foreground));
   border: none;
   padding: 18px 30px;
-  border-radius: 50px;
+  border-radius: var(--radius-pill);
   font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
@@ -157,7 +157,7 @@
   color: hsl(var(--accent-foreground));
   border: none;
   padding: 12px 24px;
-  border-radius: 25px;
+  border-radius: var(--radius-pill);
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiUsers, FiFileText, FiMic, FiBarChart2, FiUpload } from 'react-icons/fi';
+import { FiUsers, FiFileText, FiMic, FiBarChart2, FiUpload, FiBookOpen } from 'react-icons/fi';
 import { useAuth } from '../contexts/AuthContext';
 import './Dashboard.css';
 
@@ -24,29 +24,34 @@ function Dashboard() {
   }, [user]);
 
   const loadProfessorData = async () => {
+    if (!user?.id) return;
+
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+
     try {
       // Load documents
-      if (user?.id) {
-        const docsResponse = await fetch(`/api/upload/pdfs/${user.id}`);
-        if (docsResponse.ok) {
-          const result = await docsResponse.json();
-          if (result.success) {
-            setDocuments(result.data);
-            setStats(prev => ({ ...prev, totalDocuments: result.data.length }));
-          }
+      const docsResponse = await fetch(`${API_BASE_URL}/api/upload/pdfs/${user.id}`);
+      if (docsResponse.ok) {
+        const result = await docsResponse.json();
+        if (result.success) {
+          setDocuments(result.data);
+          setStats(prev => ({ ...prev, totalDocuments: result.data.length }));
         }
       }
 
-      // Load student calls/conversations
-      const callsResponse = await fetch('/api/conversations');
+      // Load tutoring session conversations
+      const callsResponse = await fetch(`${API_BASE_URL}/api/conversations/${user.id}`);
       if (callsResponse.ok) {
-        const calls = await callsResponse.json();
-        setStudentCalls(calls);
-        setStats(prev => ({ 
-          ...prev, 
-          totalCalls: calls.length,
-          totalStudents: new Set(calls.map(call => call.phoneNumber)).size
-        }));
+        const result = await callsResponse.json();
+        if (result.success) {
+          const calls = result.data.conversations || [];
+          setStudentCalls(calls);
+          setStats(prev => ({
+            ...prev,
+            totalCalls: calls.length,
+            totalStudents: new Set(calls.map(call => call.documentId)).size
+          }));
+        }
       }
 
       // Set recent activity
@@ -108,7 +113,7 @@ function Dashboard() {
               </div>
               <div className="stat-content">
                 <div className="stat-number">{stats.totalStudents}</div>
-                <div className="stat-label">Active Students</div>
+                <div className="stat-label">Documents Studied</div>
               </div>
             </div>
             
@@ -169,8 +174,8 @@ function Dashboard() {
             {recentActivity.map((activity) => (
               <div key={activity.id} className="activity-item">
                 <div className={`activity-icon ${activity.type}`}>
-                  {activity.type === 'upload' ? <FiUpload /> : 
-                   activity.type === 'call' ? <FiMic /> : 
+                  {activity.type === 'upload' ? <FiUpload /> :
+                   activity.type === 'call' ? <FiMic /> :
                    activity.type === 'assignment' ? <FiFileText /> : <FiBookOpen />}
                 </div>
                 <div className="activity-content">

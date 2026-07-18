@@ -50,7 +50,7 @@
   align-items: center;
   gap: 10px;
   padding: 18px 35px;
-  border-radius: 50px;
+  border-radius: var(--radius-pill);
   text-decoration: none;
   font-weight: 700;
   font-size: 1.1rem;
@@ -137,8 +137,7 @@
 }
 
 .feature-card {
-  background: white !important;
-  background-color: white !important;
+  background: hsl(var(--card));
   padding: 40px 30px;
   border-radius: var(--radius);
   text-align: center;
@@ -148,12 +147,6 @@
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
-}
-
-/* Ensure all feature cards have white background */
-.home-page .feature-card {
-  background: white !important;
-  background-color: white !important;
 }
 
 .feature-card:hover {
@@ -184,13 +177,13 @@
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 15px;
-  color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary));
 }
 
 .feature-card p {
   font-size: 1rem;
   line-height: 1.6;
-  color: hsl(var(--muted-foreground)) !important;
+  color: hsl(var(--muted-foreground));
   font-weight: 500;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -216,7 +209,7 @@
   align-items: flex-start;
   gap: 20px;
   padding: 30px;
-  background: white;
+  background: hsl(var(--card));
   border-radius: var(--radius);
   box-shadow: var(--shadow-tech);
   border: 1px solid hsl(var(--border));

@@ -78,7 +78,7 @@ function Register() {
 
     setLoading(true);
     try {
-      await register({
+      const result = await register({
         name: formData.name,
         email: formData.email,
         password: formData.password,
@@ -87,7 +87,11 @@ function Register() {
         title: formData.title,
         role: 'professor'
       });
-      navigate('/dashboard');
+      if (result.success) {
+        navigate('/dashboard');
+      } else {
+        setErrors({ submit: result.error || 'Registration failed' });
+      }
     } catch (error) {
       setErrors({ submit: error.message || 'Registration failed' });
     } finally {
@@ -123,6 +127,9 @@ function Register() {
                 onChange={handleChange}
                 className={`form-input ${errors.name ? 'error' : ''}`}
                 placeholder="Enter your full name"
+                required
+                aria-required="true"
+                autoComplete="name"
                 aria-describedby={errors.name ? 'name-error' : undefined}
               />
               {errors.name && (
@@ -145,6 +152,9 @@ function Register() {
                 onChange={handleChange}
                 className={`form-input ${errors.email ? 'error' : ''}`}
                 placeholder="Enter your email"
+                required
+                aria-required="true"
+                autoComplete="email"
                 aria-describedby={errors.email ? 'email-error' : undefined}
               />
               {errors.email && (
@@ -169,6 +179,10 @@ function Register() {
                 onChange={handleChange}
                 className={`form-input ${errors.password ? 'error' : ''}`}
                 placeholder="Create a password"
+                required
+                aria-required="true"
+                autoComplete="new-password"
+                minLength={6}
                 aria-describedby={errors.password ? 'password-error' : undefined}
               />
               {errors.password && (
@@ -191,6 +205,9 @@ function Register() {
                 onChange={handleChange}
                 className={`form-input ${errors.confirmPassword ? 'error' : ''}`}
                 placeholder="Confirm your password"
+                required
+                aria-required="true"
+                autoComplete="new-password"
                 aria-describedby={errors.confirmPassword ? 'confirm-password-error' : undefined}
               />
               {errors.confirmPassword && (
@@ -215,6 +232,9 @@ function Register() {
                 onChange={handleChange}
                 className={`form-input ${errors.institution ? 'error' : ''}`}
                 placeholder="University, College, or School"
+                required
+                aria-required="true"
+                autoComplete="organization"
                 aria-describedby={errors.institution ? 'institution-error' : undefined}
               />
               {errors.institution && (
@@ -237,6 +257,8 @@ function Register() {
                 onChange={handleChange}
                 className={`form-input ${errors.department ? 'error' : ''}`}
                 placeholder="Department or Subject Area"
+                required
+                aria-required="true"
                 aria-describedby={errors.department ? 'department-error' : undefined}
               />
               {errors.department && (
@@ -264,7 +286,7 @@ function Register() {
           </div>
 
           {errors.submit && (
-            <div className="submit-error" role="alert">
+            <div className="alert alert-error" role="alert">
               {errors.submit}
             </div>
           )}
@@ -274,6 +296,7 @@ function Register() {
             disabled={loading}
             className="register-button"
             aria-describedby="register-help"
+            aria-busy={loading}
           >
             {loading ? 'Creating Account...' : 'Create Professor Account'}
             <FiArrowRight className="button-icon" />
@@ -287,7 +310,7 @@ function Register() {
         <div className="register-footer">
           <p className="login-link-text">
             Already have an account?{' '}
-            <Link to="/login" className="login-link">
+            <Link to="/login" className="login-footer-link">
               Sign in here
             </Link>
           </p>

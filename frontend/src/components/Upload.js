@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiUpload, FiFile, FiCheck, FiX } from 'react-icons/fi';
+import { useAuth } from '../contexts/AuthContext';
 import './Upload.css';
 
 function Upload() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState(null);
@@ -55,7 +57,7 @@ function Upload() {
     try {
       const formData = new FormData();
       formData.append('pdf', file);
-      formData.append('userId', 'demo-user');
+      formData.append('userId', user?.id || 'demo-user');
 
       const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
       const response = await fetch(`${API_BASE_URL}/api/upload/pdf`, {
@@ -86,14 +88,6 @@ function Upload() {
       });
     } finally {
       setUploading(false);
-    }
-  };
-
-  const speakText = (text) => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 0.9;
-      speechSynthesis.speak(utterance);
     }
   };
 
@@ -157,7 +151,7 @@ function Upload() {
                 <FiUpload className="upload-icon" />
                 <h3>Drop your PDF here or click to browse</h3>
                 <p>Supported format: PDF files only</p>
-                <button className="browse-button">Choose File</button>
+                <span className="browse-button">Choose File</span>
               </div>
             )}
           </div>
@@ -168,6 +162,7 @@ function Upload() {
                 onClick={handleUpload}
                 disabled={uploading}
                 className="upload-button"
+                aria-busy={uploading}
               >
                 {uploading ? (
                   <>
@@ -185,7 +180,7 @@ function Upload() {
           )}
 
           {uploadStatus && (
-            <div className={`upload-status ${uploadStatus.type}`}>
+            <div className={`upload-status ${uploadStatus.type}`} role="status" aria-live="polite">
               {uploadStatus.type === 'success' ? (
                 <FiCheck className="status-icon" />
               ) : (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiBookOpen, FiUsers, FiPhone, FiTarget, FiArrowRight, FiCheckCircle } from 'react-icons/fi';
+import { FiArrowRight, FiCheckCircle } from 'react-icons/fi';
 import './Home.css';
 
 function Home() {
@@ -46,8 +46,8 @@ function Home() {
               <div className="feature-icon">
                 <span className="feature-number">2</span>
               </div>
-              <h3>AI Phone Tutoring</h3>
-              <p>Students receive personalized phone calls from AI tutors based on your course materials.</p>
+              <h3>AI Voice Tutoring</h3>
+              <p>Students start an in-browser voice session with an AI tutor built from your course materials.</p>
             </div>
             
             <div className="feature-card">

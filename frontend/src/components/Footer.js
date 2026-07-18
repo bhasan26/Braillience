@@ -2,6 +2,8 @@ import React from 'react';
 import './Footer.css';
 
 function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -36,7 +38,7 @@ function Footer() {
         
         <div className="footer-bottom">
           <p className="footer-copyright">
-            © 2024 Braillience. Built for accessibility and inclusion.
+            © {currentYear} Braillience. Built for accessibility and inclusion.
           </p>
         </div>
       </div>
